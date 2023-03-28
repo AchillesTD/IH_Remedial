@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8">
+    <title>AchillesTD</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            background: #5684A0;
+        }
+
+        .position {
+            aspect-ratio: 1 / 1;
+            position: absolute;
+            inset: 0.5em;
+            margin: auto;
+        }
+
+        .bigbox {
+            position: fixed;
+            width: 30rem;
+        }
+
+        .clock-ctn {
+            background: darkblue;
+            width: 90%;
+            border-radius: 50%;
+            box-shadow: 0em 1em 6em 0em #000000a3;
+        }
+
+        .markers {
+            width: 2%;
+            aspect-ratio: 1 / 45;
+            border-radius: 30%;
+            background: #ffffff90;
+        }
+
+        .cardinal {
+            background: #FF5733;
+            width: 4%;
+            aspect-ratio: 2 / 45;
+        }
+
+        #m-3-9 {
+            transform: rotate(90deg);
+        }
+
+        #m-1-7 {
+            transform: rotate(30deg);
+        }
+
+        #m-2-8 {
+            transform: rotate(60deg);
+        }
+
+        #m-4-10 {
+            transform: rotate(-30deg);
+        }
+
+        #m-5-11 {
+            transform: rotate(-60deg);
+        }
+
+        .clock-face {
+            background: darkblue;
+            width: 75%;
+            border-radius: 50%;
+        }
+
+        .clock-hand {
+            border-radius: 2em;
+            background: linear-gradient(#FF5733 50%, transparent 50%);
+        }
+
+        .hour {
+            width: 3%;
+            aspect-ratio: 1 / 25;
+        }
+
+        .minute {
+            width: 2%;
+            aspect-ratio: 1 / 45;
+        }
+
+        .second {
+            width: .5%;
+            aspect-ratio: 1 / 192;
+            background: linear-gradient(red 50%, transparent 50%);
+        }
+
+        .dot {
+            width: 7%;
+            border-radius: 50%;
+            background: #fff;
+        }
+
+        p {
+            color: darkblue;
+            font-size: 1rem;
+            text-align: center;
+            width: 70%;
+            position: absolute;
+            bottom: 11%;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+        }
+
+        .ref {
+            font-size: 0.7em;
+            bottom: 4%;
+            color: #ffffff89;
+        }
+
+        a {
+            text-decoration: .1em darkblue underline;
+            color: darkblue;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bigbox position">
+        <div class="clock-ctn position">
+            <div class="markers position cardinal" id="m-12-6"></div>
+            <div class="markers position" id="m-1-7"></div>
+            <div class="markers position" id="m-2-8"></div>
+            <div class="markers position cardinal" id="m-3-9"></div>
+            <div class="markers position" id="m-4-10"></div>
+            <div class="markers position" id="m-5-11"></div>
+            <div class="clock-face position">
+                <div class="clock-hand position hour"></div>
+                <div class="clock-hand position minute"></div>
+                <div class="clock-hand position second"></div>
+                <div class="dot position"></div>
+            </div>
+        </div>
+    </div>
+    <p>Dalavi's Clock</p>
+    <p class="ref"><a href="https://remedial-ih.web.app/">Panda's Clock Link</a></p>
+    <script>
+        const now = new Date();
+        const currentHour = now.getHours();
+        const currentMinute = now.getMinutes();
+        const currentSecond = now.getSeconds();
+        const secondHand = document.querySelector(".second");
+        const minuteHand = document.querySelector(".minute");
+        const hourHand = document.querySelector(".hour");
+        let secondDeg = currentSecond * 6;
+        let minuteDeg = currentMinute * 6 + (currentSecond * 6 / 60);
+        let hourDeg = currentHour * 30 + (currentMinute * 30 / 60) + (currentSecond * 30 / 3600);
+
+        setInterval(() => {
+            secondDeg += 6;
+            minuteDeg += 6 / 60;
+            hourDeg += 30 / 3600;
+            secondHand.style.transform = `rotate(${secondDeg}deg)`;
+            minuteHand.style.transform = `rotate(${minuteDeg}deg)`;
+            hourHand.style.transform = `rotate(${hourDeg}deg)`;
+        }, 1000);
+
+        window.addEventListener("focus", function () {
+            window.location.reload();
+        });
+    </script>
+</body>
